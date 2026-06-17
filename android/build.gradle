@@ -1,0 +1,47 @@
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
+
+subprojects {
+    def configureNamespace = { proj ->
+        if (proj.hasProperty("android")) {
+            proj.android {
+                if (namespace == null) {
+                    namespace = "com.michaelf.my_league.${proj.name.replaceAll('[^a-zA-Z0-9_]', '')}"
+                }
+            }
+            // Strip package attribute from manifest to comply with AGP 8+ requirements
+            def manifestFile = proj.file("src/main/AndroidManifest.xml")
+            if (manifestFile.exists()) {
+                def content = manifestFile.text
+                if (content.contains("package=")) {
+                    content = content.replaceAll(/package="[^"]*"/, "")
+                    manifestFile.text = content
+                }
+            }
+        }
+    }
+
+    if (project.state.executed) {
+        configureNamespace(project)
+    } else {
+        project.afterEvaluate {
+            configureNamespace(project)
+        }
+    }
+}
