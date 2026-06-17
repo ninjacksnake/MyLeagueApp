@@ -1,16 +1,60 @@
-# my_league
+# My League
 
-A new Flutter project.
+A Flutter app for managing sports leagues and tournaments. Organize teams, track rosters, record match scores, and monitor player payments — all from your phone.
+
+## Features
+
+- Create leagues with round-robin or single-elimination formats
+- Basketball rotation matchmaking built-in
+- Team management with color-coded badges and rosters
+- Player profiles with jersey number, position, age, phone, and email
+- Payment tracking per player with monthly fee support
+- Dashboard with global player and finance views
+- Password-protected access
+- English and Spanish language support
+- Dark theme throughout
+
+## Tech Stack
+
+- **Flutter** (Dart) — SDK >=3.4.3
+- **Riverpod** — state management
+- **Isar** — local database
+- **Google Fonts** — typography
+- **Shared Preferences** — lightweight persistent settings
+- **UUID** — unique ID generation
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+- Flutter SDK installed ([flutter.dev](https://flutter.dev))
+- Android or iOS device/emulator
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Setup
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+# Install dependencies
+flutter pub get
+
+# Generate Isar schema files
+dart run build_runner build --delete-conflicting-outputs
+
+# Run the app
+flutter run
+```
+
+## Project Structure
+
+```
+lib/
+  main.dart               # App entry point
+  models/                 # Data models (League, Team, Player, Match, Payment)
+  providers/              # Riverpod state notifiers
+  screens/                # All app screens
+  theme/                  # App colors and styles
+  widgets/                # Reusable UI components
+```
+
+## Version
+
+1.0.0
